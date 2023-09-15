@@ -5,15 +5,18 @@ const path = require("node:path");
 const { log } = require("node:console");
 
 const getHTML = readFileSync(
-  path.join(__dirname, "files", "home.html"),
+  path.join(__dirname, "..", "public/index.html"),
   "utf-8"
 );
 const getCSS = readFileSync(
-  path.join(__dirname, "files", "style.css"),
+  path.join(__dirname, "..", "public/style.css"),
   "utf-8"
 );
-const getImg = readFileSync(path.join(__dirname, "files", "codelab.png"));
-const getJS = readFileSync(path.join(__dirname, "files", "script.js"), "utf-8");
+const getImg = readFileSync(path.join(__dirname, "..", "public/codelab.png"));
+const getJS = readFileSync(
+  path.join(__dirname, "..", "public/script.js"),
+  "utf-8"
+);
 
 const server = http.createServer((req, res) => {
   const url = req.url;
@@ -22,33 +25,27 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "content-type": "text/html" });
     res.write(getHTML);
     res.end();
-  }
-  else if (url === "/about") {
+  } else if (url === "/about") {
     res.writeHead(200, { "content-type": "text/html" });
     res.write("<h1>about page</h1>");
     res.end();
-  }
-  else if (url === "/contact") {
+  } else if (url === "/contact") {
     res.writeHead(200, { "content-type": "text/html" });
     res.write("<h1>contact page</h1>");
     res.end();
-  }
-  else if (url === "/styles.css") {
+  } else if (url === "/style.css") {
     res.writeHead(200, { "content-type": "text/css" });
     res.write(getCSS);
     res.end();
-  }
-  else if (url === "/codelab.png") {
+  } else if (url === "/codelab.png") {
     res.writeHead(200, { "content-type": "image/png" });
     res.write(getImg);
     res.end();
-  }
-  else if (url === "/script.js") {
+  } else if (url === "/script.js") {
     res.writeHead(200, { "content-type": "text/javascript" });
     res.write(getJS);
     res.end();
-  }
-  else {
+  } else {
     res.writeHead(404, { "content-type": "text/html" });
     res.write("<h1>page not found</h1>");
     res.end();
